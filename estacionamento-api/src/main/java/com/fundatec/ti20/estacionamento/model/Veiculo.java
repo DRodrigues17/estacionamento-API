@@ -1,12 +1,13 @@
 package com.fundatec.ti20.estacionamento.model;
 
-import com.fundatec.ti20.estacionamento.model.Enum.TipoVeiculo;
+import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "tb_veiculo")
 public class Veiculo {
 
 
@@ -14,12 +15,14 @@ public class Veiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_veiculo", nullable = false)
     private TipoVeiculo tipoVeiculo;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 7)
     private String placa;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "assinante_id")
     private Assinante assinante;
 }

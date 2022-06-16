@@ -5,9 +5,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
+@Table(name = "tb_plano")
 public class Plano {
 
 
@@ -15,8 +17,9 @@ public class Plano {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Assinante assinante;
+    @OneToMany
+    @JoinColumn(name = "assinante_id")
+    private List<Assinante> assinante;
 
     @Column(nullable = false)
     private BigDecimal valor;

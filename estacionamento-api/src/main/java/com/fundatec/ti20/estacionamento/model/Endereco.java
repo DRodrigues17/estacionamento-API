@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "tb_endereco")
 public class Endereco {
 
 
@@ -14,10 +15,7 @@ public class Endereco {
     private Integer id;
 
     @Column(nullable = false)
-    private Assinante assinante;
-
-    @Column(nullable = false)
-    private String endereco;
+    private String logradouro;
 
     @Column(nullable = false, length = 10)
     private String cep;

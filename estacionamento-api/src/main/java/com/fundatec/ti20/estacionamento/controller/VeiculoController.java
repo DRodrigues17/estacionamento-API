@@ -1,5 +1,6 @@
 package com.fundatec.ti20.estacionamento.controller;
 
+import com.fundatec.ti20.estacionamento.dto.VeiculoDto;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.service.VeiculoService;
 import org.springframework.web.bind.annotation.*;
@@ -11,61 +12,40 @@ import java.util.Optional;
 @RequestMapping("/v1/veiculo")
 public class VeiculoController {
 
-    private final VeiculoService veiculoService;
+    private final VeiculoService service;
 
     public VeiculoController(VeiculoService veiculoService) {
-        this.veiculoService = veiculoService;
+        this.service = veiculoService;
     }
 
     @GetMapping("/{id}")
-    public Veiculo findCityById(@PathVariable("id") Integer id){
-        Optional<Veiculo> optionalVeiculo = veiculoService.fingById(id);
-        if (optionalVeiculo.isPresent())
-            return optionalVeiculo.get();
+    public VeiculoDto findVeicleById(@PathVariable("id") Integer id) {
+        Optional<VeiculoDto> optionalVeiculoDto = service.fingById(id);
+        if (optionalVeiculoDto.isPresent())
+            return optionalVeiculoDto.get();
 
         return null;
     }
 
-//
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Sucesso na busca"),
-//            @ApiResponse(responseCode = "403", description = "Erro de permissao"),
-//            @ApiResponse(responseCode = "500", description = "Erro de infraestrutura"),
-//    })
-//    @Parameters(
-//            value = {
-//                    @Parameter(name = "xxxxxxß")
-//            }
-//    )
-
     @GetMapping
     public  Iterable<Veiculo> findAll(){
-        return  veiculoService.findAll();
+        return service.findAll();
     }
 
     @PostMapping
     public Veiculo salvar(@RequestBody Veiculo veiculo){
-        return veiculoService.salvar(veiculo);
+        return service.salvar(veiculo);
     }
 
 
     @PutMapping
     public Veiculo atualizar(@RequestBody Veiculo veiculo){
-        return veiculoService.atualizar(veiculo);
+        return service.atualizar(veiculo);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id){
-        veiculoService.delete(id);
+        service.delete(id);
     }
-//
-//    @GetMapping("/")
-//    public Cidade findByLike(@RequestParam("name") String nome){
-//        Optional<Cidade> optionalCity = cidadeService.findByLike(nome);
-//        if (optionalCity.isPresent())
-//            return optionalCity.get();
-//
-//        return null;
-//    }
 
 }

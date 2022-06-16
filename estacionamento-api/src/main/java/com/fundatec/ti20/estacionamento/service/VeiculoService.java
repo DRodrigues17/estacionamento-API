@@ -1,7 +1,9 @@
 package com.fundatec.ti20.estacionamento.service;
 
+import com.fundatec.ti20.estacionamento.dto.VeiculoDto;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.repository.VeiculoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,21 +12,23 @@ import java.util.Optional;
 public class VeiculoService {
 
 
+    @Autowired
     private final VeiculoRepository repository;
 
     public VeiculoService(VeiculoRepository repository) {
         this.repository = repository;
     }
 
-    public Optional<Veiculo> fingById(Integer id){
-        return repository.findById(id);
+    public Optional<VeiculoDto> fingById(Integer id) {
+        Veiculo model = repository.findById(id).get();
+        return Optional.of(new VeiculoDto(model));
     }
 
-    public Iterable<Veiculo> findAll(){
+    public Iterable<Veiculo> findAll() {
         return repository.findAll();
     }
 
-    public Veiculo salvar(Veiculo veiculo){
+    public Veiculo salvar(Veiculo veiculo) {
         return repository.save(veiculo);
     }
 
