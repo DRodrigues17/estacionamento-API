@@ -13,6 +13,7 @@ public class AssinanteResponseConverter implements AssinanteConverter<Assinante,
         return AssinanteDto.builder()
                 .cpf(assinante.getCpf())
                 .nome(assinante.getNome())
+                .creditoTotal(assinante.getCreditoTotal())
                 .veiculos(assinante.getVeiculos())
                 .build();
     }
