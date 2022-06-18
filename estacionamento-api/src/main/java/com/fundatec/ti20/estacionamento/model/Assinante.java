@@ -39,7 +39,7 @@ public class Assinante {
     @Column(nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "assinante")
+    @OneToMany(mappedBy = "assinante", targetEntity = Veiculo.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Veiculo> veiculos;
 
 

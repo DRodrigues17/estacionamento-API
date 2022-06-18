@@ -1,0 +1,23 @@
+package com.fundatec.ti20.estacionamento.service.strategy.periodo;
+
+
+import com.fundatec.ti20.estacionamento.instance.TarifaPorVeiculoInstance;
+import com.fundatec.ti20.estacionamento.model.Veiculo;
+import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
+import com.fundatec.ti20.estacionamento.service.strategy.veiculo.TarifaPorVeiculoStrategy;
+
+public interface TarifaPorPeriodoStrategy {
+	
+	boolean compreendePeriodoUtilizado(long periodoUtilizadoEmMinutos);
+
+	double calcular(Veiculo veiculo, Long periodoUtilizadoEmMinutos);
+	
+	default TarifaPorVeiculoStrategy getTarifaVeiculoStrategy(Veiculo veiculo) {
+		return TarifaPorVeiculoInstance.INSTANCIAS.get()
+			.filter(estrategia -> estrategia.veiculoEhDoTipo(veiculo.getTipo()))
+			.findFirst()
+			.orElseThrow(() 
+					-> new IllegalStateException("Nenhuma estratégia implementada para o tipo de veículo"));
+	}
+
+}

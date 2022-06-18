@@ -3,6 +3,7 @@ package com.fundatec.ti20.estacionamento.controller;
 import com.fundatec.ti20.estacionamento.dto.VeiculoDto;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.service.VeiculoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,12 +20,12 @@ public class VeiculoController {
     }
 
     @GetMapping("/{id}")
-    public VeiculoDto findVeicleById(@PathVariable("id") Integer id) {
-        Optional<VeiculoDto> optionalVeiculoDto = service.fingById(id);
+    public ResponseEntity<VeiculoDto> findVeicleById(@PathVariable("id") Integer id) {
+        Optional<VeiculoDto> optionalVeiculoDto = service.findById(id);
         if (optionalVeiculoDto.isPresent())
-            return optionalVeiculoDto.get();
+            return ResponseEntity.ok(optionalVeiculoDto.get());
 
-        return null;
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping

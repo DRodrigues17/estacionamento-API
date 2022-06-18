@@ -33,4 +33,8 @@ public class Veiculo {
     @JoinColumn(name = "assinante_id")
     private Assinante assinante;
 
+    public TipoVeiculo getTipo() {
+        return tipoVeiculo;
+    }
 }
+
