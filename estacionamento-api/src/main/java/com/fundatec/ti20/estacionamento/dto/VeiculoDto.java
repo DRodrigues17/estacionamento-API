@@ -3,7 +3,11 @@ package com.fundatec.ti20.estacionamento.dto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
+import lombok.Builder;
+import lombok.Data;
 
+@Builder
+@Data
 public class VeiculoDto {
 
     private TipoVeiculo tipoVeiculo;

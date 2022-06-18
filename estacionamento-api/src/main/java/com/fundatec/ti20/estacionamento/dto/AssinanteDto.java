@@ -4,11 +4,13 @@ import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.model.Endereco;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import lombok.Builder;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
+@Data
 public class AssinanteDto {
 
     private String nome;

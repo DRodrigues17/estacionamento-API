@@ -20,32 +20,33 @@ public class AssinanteController {
     }
 
     @GetMapping("/{id}")
-    public AssinanteDto findAssinanteById(@PathVariable("id") Integer id) {
+    public AssinanteDto findAssinanteById(@PathVariable Integer id) {
         Optional<AssinanteDto> optionalAssinanteDto = service.fingById(id);
-        if (optionalAssinanteDto.isPresent())
+        if (optionalAssinanteDto.isPresent()) {
             return optionalAssinanteDto.get();
+        }
 
         return null;
     }
 
     @GetMapping
-    public  Iterable<Assinante> findAll(){
+    public Iterable<Assinante> findAll() {
         return service.findAll();
     }
 
     @PostMapping
-    public Assinante salvar(@RequestBody Assinante assinante){
+    public Assinante salvar(@RequestBody Assinante assinante) {
         return service.salvar(assinante);
     }
 
 
     @PutMapping
-    public Assinante atualizar(@RequestBody Assinante assinante){
+    public Assinante atualizar(@RequestBody Assinante assinante) {
         return service.atualizar(assinante);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id){
+    public void deleteById(@PathVariable Integer id) {
         service.delete(id);
     }
 

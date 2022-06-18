@@ -1,8 +1,11 @@
 package com.fundatec.ti20.estacionamento.dto;
 
 import com.fundatec.ti20.estacionamento.model.Endereco;
+import lombok.Builder;
+import lombok.Data;
 
-
+@Builder
+@Data
 public class EnderecoDto {
 
     private String logradouro;
