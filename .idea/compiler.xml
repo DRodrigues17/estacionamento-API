@@ -11,5 +11,9 @@
         <module name="estacionamento-api.estacionamento-api.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="estacionamento-api.estacionamento-api.main~1" target="17" />
+      <module name="estacionamento-api.estacionamento-api.test~1" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

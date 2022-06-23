@@ -1,31 +1,32 @@
 package com.fundatec.ti20.estacionamento.controller;
 
+import com.fundatec.ti20.estacionamento.converter.response.VeiculoResponseConverter;
 import com.fundatec.ti20.estacionamento.dto.VeiculoDto;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.service.VeiculoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/v1/veiculo")
 public class VeiculoController {
 
+    @Autowired
     private final VeiculoService service;
+    @Autowired
+    private final VeiculoResponseConverter converter;
 
-    public VeiculoController(VeiculoService veiculoService) {
+    public VeiculoController(VeiculoService veiculoService, VeiculoResponseConverter converter) {
         this.service = veiculoService;
+        this.converter = converter;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<VeiculoDto> findVeicleById(@PathVariable("id") Integer id) {
-        Optional<VeiculoDto> optionalVeiculoDto = service.findById(id);
-        if (optionalVeiculoDto.isPresent())
-            return ResponseEntity.ok(optionalVeiculoDto.get());
-
-        return ResponseEntity.notFound().build();
+        Veiculo veiculo = service.findById(id);
+        return ResponseEntity.ok(converter.convert(veiculo));
     }
 
     @GetMapping
