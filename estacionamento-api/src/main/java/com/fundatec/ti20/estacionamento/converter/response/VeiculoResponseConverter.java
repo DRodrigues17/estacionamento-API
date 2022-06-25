@@ -23,5 +23,5 @@ public class VeiculoResponseConverter implements VeiculoConverter<Veiculo, Veicu
                                             .creditoTotal(veiculo.getAssinante().getCreditoTotal())
                                             .build())
                             .build();
-    }
+   }
 }

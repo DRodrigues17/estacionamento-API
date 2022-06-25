@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.StreamSupport;
+
 
 @RestController
 @RequestMapping("/v1/veiculo")
@@ -30,23 +33,29 @@ public class VeiculoController {
     }
 
     @GetMapping
-    public  Iterable<Veiculo> findAll(){
-        return service.findAll();
+    public ResponseEntity<List<VeiculoDto>> findAll() {
+        Iterable<Veiculo> veiculo = service.findAll();
+        List<VeiculoDto> veiculoDto = StreamSupport.stream(veiculo.spliterator(), false)
+                .map(converter::convert)
+                .toList();
+        return ResponseEntity.ok(veiculoDto);
     }
 
     @PostMapping
-    public Veiculo salvar(@RequestBody Veiculo veiculo){
-        return service.salvar(veiculo);
+    public ResponseEntity<VeiculoDto> salvar(@RequestBody Veiculo veiculo) {
+        Veiculo veiculoDto = service.salvar(veiculo);
+        return ResponseEntity.ok(converter.convert(veiculoDto));
     }
 
 
     @PutMapping
-    public Veiculo atualizar(@RequestBody Veiculo veiculo){
-        return service.atualizar(veiculo);
+    public ResponseEntity<VeiculoDto> atualizar(@RequestBody Veiculo veiculo) {
+        Veiculo veiculoDto = service.salvar(veiculo);
+        return ResponseEntity.ok(converter.convert(veiculoDto)) ;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id){
+    public void deleteById(@PathVariable Integer id) {
         service.delete(id);
     }
 

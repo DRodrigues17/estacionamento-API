@@ -2,15 +2,16 @@ package com.fundatec.ti20.estacionamento.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Getter
 @ToString
 @Table(name = "tb_veiculo")
 public class Veiculo {

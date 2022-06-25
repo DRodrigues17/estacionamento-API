@@ -21,10 +21,6 @@ public class VeiculoService {
         this.repository = repository;
     }
 
-
-    /*
-    Preciso extrair esse método para a classe VeiculoDto converter
-     */
     public Veiculo findById(Integer id) {
        return repository.findById(id).orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
     }

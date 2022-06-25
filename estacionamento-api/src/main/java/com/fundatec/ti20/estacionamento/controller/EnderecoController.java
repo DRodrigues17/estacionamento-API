@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/v1/endereco")
@@ -24,27 +26,28 @@ public class EnderecoController {
         this.service = enderecoService;
         this.converter = converter;
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<EnderecoDto> findEmderecoById(@PathVariable("id") Integer id) {
         Endereco endereco = service.fingById(id);
         return ResponseEntity.ok(converter.convert(endereco));
     }
-
     @GetMapping
-    public  Iterable<Endereco> findAll(){
-        return service.findAll();
+    public  ResponseEntity<List<EnderecoDto>> findAll(){
+        Iterable<Endereco> endereco = service.findAll();
+        List<EnderecoDto> enderecoDto = StreamSupport.stream(endereco.spliterator(), false)
+                .map(converter::convert)
+                .toList();
+        return ResponseEntity.ok(enderecoDto);
     }
-
     @PostMapping
-    public Endereco salvar(@RequestBody Endereco endereco){
-        return service.salvar(endereco);
+    public ResponseEntity<EnderecoDto> salvar(@RequestBody Endereco endereco){
+        Endereco enderecoDto = service.salvar(endereco);
+        return ResponseEntity.ok(converter.convert(enderecoDto));
     }
-
-
     @PutMapping
-    public Endereco atualizar(@RequestBody Endereco endereco){
-        return service.atualizar(endereco);
+    public ResponseEntity<EnderecoDto> atualizar(@RequestBody Endereco endereco){
+        Endereco enderecoDto = service.atualizar(endereco);
+        return ResponseEntity.ok(converter.convert(enderecoDto));
     }
 
     @DeleteMapping("/{id}")

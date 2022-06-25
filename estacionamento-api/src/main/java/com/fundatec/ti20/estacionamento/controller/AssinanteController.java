@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.StreamSupport;
+
 @RestController
 @RequestMapping("/v1/assinante")
 public class AssinanteController {
@@ -21,28 +24,28 @@ public class AssinanteController {
         this.service = assinanteService;
         this.converter = converter;
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<AssinanteDto> findAssinanteById(@PathVariable Integer id) {
         Assinante assinante = service.fingById(id);
         return ResponseEntity.ok(converter.convert(assinante));
-
     }
-
     @GetMapping
-    public Iterable<Assinante> findAll() {
-        return service.findAll();
+    public ResponseEntity<List<AssinanteDto>> findAll(){
+    Iterable<Assinante> assinante = service.findAll();
+    List<AssinanteDto> assinanteDto = StreamSupport.stream(assinante.spliterator(), false)
+            .map(converter::convert)
+            .toList();
+        return ResponseEntity.ok(assinanteDto);
     }
-
     @PostMapping
-    public Assinante salvar(@RequestBody Assinante assinante) {
-        return service.salvar(assinante);
+    public ResponseEntity<AssinanteDto> salvar(@RequestBody Assinante assinante) {
+       Assinante assinanteDto = service.salvar(assinante);
+       return ResponseEntity.ok(converter.convert(assinanteDto));
     }
-
-
     @PutMapping
-    public Assinante atualizar(@RequestBody Assinante assinante) {
-        return service.atualizar(assinante);
+    public ResponseEntity<AssinanteDto> atualizar(@RequestBody Assinante assinante) {
+        Assinante assinanteDto = service.atualizar(assinante);
+        return ResponseEntity.ok(converter.convert(assinanteDto));
     }
 
     @DeleteMapping("/{id}")
