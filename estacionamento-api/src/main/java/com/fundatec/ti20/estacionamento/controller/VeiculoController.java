@@ -6,6 +6,7 @@ import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,14 @@ public class VeiculoController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
     public ResponseEntity<VeiculoDto> findVeicleById(@PathVariable("id") Integer id) {
         Veiculo veiculo = service.findById(id);
         return ResponseEntity.ok(converter.convert(veiculo));
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<VeiculoDto>> findAll() {
         Iterable<Veiculo> veiculo = service.findAll();
         List<VeiculoDto> veiculoDto = StreamSupport.stream(veiculo.spliterator(), false)
@@ -42,6 +45,7 @@ public class VeiculoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<VeiculoDto> salvar(@RequestBody Veiculo veiculo) {
         Veiculo veiculoDto = service.salvar(veiculo);
         return ResponseEntity.ok(converter.convert(veiculoDto));
@@ -49,13 +53,15 @@ public class VeiculoController {
 
 
     @PutMapping
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<VeiculoDto> atualizar(@RequestBody Veiculo veiculo) {
         Veiculo veiculoDto = service.salvar(veiculo);
         return ResponseEntity.ok(converter.convert(veiculoDto)) ;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Integer id){
         service.delete(id);
     }
 
