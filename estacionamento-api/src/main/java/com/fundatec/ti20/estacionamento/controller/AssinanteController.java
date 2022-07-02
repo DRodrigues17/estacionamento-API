@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/v1/assinante")
@@ -21,7 +22,7 @@ public class AssinanteController {
     @Autowired
     private final AssinanteResponseConverter converter;
 
-    public AssinanteController(AssinanteService assinanteService) {
+    public AssinanteController(AssinanteService assinanteService, AssinanteResponseConverter converter) {
         this.service = assinanteService;
         this.converter = converter;
     }

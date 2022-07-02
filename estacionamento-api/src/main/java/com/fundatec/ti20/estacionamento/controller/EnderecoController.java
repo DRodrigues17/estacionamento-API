@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/v1/endereco")
@@ -17,11 +18,10 @@ public class EnderecoController {
 
     @Autowired
     private final EnderecoService service;
-
     @Autowired
     private final EnderecoResponseConverter converter;
 
-    public EnderecoController(EnderecoService enderecoService) {
+    public EnderecoController(EnderecoService enderecoService, EnderecoResponseConverter converter) {
         this.service = enderecoService;
         this.converter = converter;
     }
