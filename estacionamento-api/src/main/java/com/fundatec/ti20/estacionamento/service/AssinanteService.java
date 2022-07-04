@@ -15,7 +15,7 @@ public class AssinanteService {
         this.repository = repository;
     }
 
-    public Assinante fingById(Integer id) {
+    public Assinante findById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Assinante não encontrado"));
     }
 

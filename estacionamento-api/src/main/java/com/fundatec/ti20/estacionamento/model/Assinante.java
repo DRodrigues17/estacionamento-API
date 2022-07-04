@@ -35,7 +35,6 @@ public class Assinante {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-
     @Column(nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

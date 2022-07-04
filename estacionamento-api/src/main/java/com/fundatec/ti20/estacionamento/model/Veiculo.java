@@ -37,5 +37,9 @@ public class Veiculo {
     public TipoVeiculo getTipo() {
         return tipoVeiculo;
     }
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "conta_id")
+    private Conta conta;
 }
 

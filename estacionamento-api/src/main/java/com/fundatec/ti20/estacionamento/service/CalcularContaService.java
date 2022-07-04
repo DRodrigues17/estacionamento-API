@@ -1,12 +1,12 @@
 package com.fundatec.ti20.estacionamento.service;
 
 import com.fundatec.ti20.estacionamento.instance.TarifaPorPeriodoInstance;
-import com.fundatec.ti20.estacionamento.model.Veiculo;
+import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import com.fundatec.ti20.estacionamento.service.strategy.periodo.TarifaPorPeriodoStrategy;
 
-public class CalcularTarifaService {
+public class CalcularContaService {
 
-	public double calcular(Veiculo veiculo, long periodoUtilizadoEmMinutos) {
+	public double calcular(TipoVeiculo veiculo, long periodoUtilizadoEmMinutos) {
 		return getTarifaPeriodoStrategy(periodoUtilizadoEmMinutos)
 				.calcular(veiculo, periodoUtilizadoEmMinutos);
 	}

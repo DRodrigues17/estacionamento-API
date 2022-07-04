@@ -13,23 +13,22 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/v1/endereco")
+@RequestMapping("/v1/enderecos")
 public class EnderecoController {
-
     @Autowired
     private final EnderecoService service;
     @Autowired
     private final EnderecoResponseConverter converter;
 
-    public EnderecoController(EnderecoService enderecoService, EnderecoResponseConverter converter) {
-        this.service = enderecoService;
+    public EnderecoController(EnderecoService service, EnderecoResponseConverter converter) {
+        this.service = service;
         this.converter = converter;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public ResponseEntity<EnderecoDto> findEmderecoById(@PathVariable("id") Integer id) {
-        Endereco endereco = service.fingById(id);
+        Endereco endereco = service.findById(id);
         return ResponseEntity.ok(converter.convert(endereco));
     }
 

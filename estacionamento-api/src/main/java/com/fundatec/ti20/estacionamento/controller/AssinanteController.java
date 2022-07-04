@@ -30,7 +30,7 @@ public class AssinanteController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public ResponseEntity<AssinanteDto> findAssinanteById(@PathVariable Integer id) {
-        Assinante assinante = service.fingById(id);
+        Assinante assinante = service.findById(id);
         return ResponseEntity.ok(converter.convert(assinante));
     }
 

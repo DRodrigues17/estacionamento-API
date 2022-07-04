@@ -6,4 +6,7 @@ public enum TipoTarifa {
     ATE_UMA_HORA,
     HORA_ADICIONAL,
     DIARIA
+
+
+
 }

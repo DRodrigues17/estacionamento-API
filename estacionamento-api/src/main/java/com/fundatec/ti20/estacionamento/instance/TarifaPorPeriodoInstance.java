@@ -18,5 +18,4 @@ public final class TarifaPorPeriodoInstance {
 				new TarifaAteUmaHora(), 
 				new TarifaHoraAdicional(), 
 				new TarifaDiaria());
-
 }
