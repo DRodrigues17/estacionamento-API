@@ -5,6 +5,7 @@ import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.service.AssinanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -44,6 +45,7 @@ public class AssinanteController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public Assinante atualizar(@RequestBody Assinante assinante) {
+        ResponseEntity.ok().body("tudo certo, um assinante novo adicionado ao sistema");
         return service.atualizar(assinante);
     }
 
