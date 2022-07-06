@@ -1,12 +1,9 @@
 package com.fundatec.ti20.estacionamento.service;
 
-import com.fundatec.ti20.estacionamento.dto.AssinanteDto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.repository.AssinanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AssinanteService {
@@ -18,9 +15,8 @@ public class AssinanteService {
         this.repository = repository;
     }
 
-    public Optional<AssinanteDto> fingById(Integer id) {
-        Assinante model = repository.findById(id).get();
-        return Optional.of(new AssinanteDto(model));
+    public Assinante findById(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Assinante não encontrado"));
     }
 
     public Iterable<Assinante> findAll() {
@@ -31,11 +27,11 @@ public class AssinanteService {
         return repository.save(assinante);
     }
 
-    public Assinante atualizar(Assinante assinante){
+    public Assinante atualizar(Assinante assinante) {
         return repository.save(assinante);
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 

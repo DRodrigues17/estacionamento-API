@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AssinanteResponseConverter implements AssinanteConverter<Assinante, AssinanteDto> {
 
-
     @Override
     public AssinanteDto convert(Assinante assinante) {
         return AssinanteDto.builder()
