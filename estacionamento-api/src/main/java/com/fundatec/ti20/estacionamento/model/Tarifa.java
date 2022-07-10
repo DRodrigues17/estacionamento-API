@@ -1,9 +1,12 @@
 package com.fundatec.ti20.estacionamento.model;
 
+import com.fundatec.ti20.estacionamento.model.enums.TipoTarifa;
+import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -19,13 +22,13 @@ public class Tarifa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "veiculo_id")
-    private Veiculo veiculo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_tarifa", nullable = false)
+    private TipoTarifa tipoTarifa;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "conta_id")
-    private Conta conta;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_veiculo", nullable = false)
+    private TipoVeiculo tipoVeiculo;
 
     @Column(nullable = false)
     private BigDecimal valor;

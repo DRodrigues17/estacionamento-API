@@ -1,11 +1,15 @@
 package com.fundatec.ti20.estacionamento.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_endereco")
 public class Endereco {
 

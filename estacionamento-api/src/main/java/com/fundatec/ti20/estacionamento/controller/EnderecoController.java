@@ -1,12 +1,12 @@
 package com.fundatec.ti20.estacionamento.controller;
 
 import com.fundatec.ti20.estacionamento.converter.response.EnderecoResponseConverter;
-import com.fundatec.ti20.estacionamento.dto.EnderecoDto;
+import com.fundatec.ti20.estacionamento.dto.response.EnderecoResponseDto;
 import com.fundatec.ti20.estacionamento.model.Endereco;
 import com.fundatec.ti20.estacionamento.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,24 +27,24 @@ public class EnderecoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<EnderecoDto> findEmderecoById(@PathVariable("id") Integer id) {
+    public ResponseEntity<EnderecoResponseDto> findEmderecoById(@PathVariable("id") Integer id) {
         Endereco endereco = service.findById(id);
         return ResponseEntity.ok(converter.convert(endereco));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public  ResponseEntity<List<EnderecoDto>> findAll(){
+    public  ResponseEntity<List<EnderecoResponseDto>> findAll(){
         Iterable<Endereco> endereco = service.findAll();
-        List<EnderecoDto> enderecoDto = StreamSupport.stream(endereco.spliterator(), false)
+        List<EnderecoResponseDto> enderecoResponseDto = StreamSupport.stream(endereco.spliterator(), false)
                 .map(converter::convert)
                 .toList();
-        return ResponseEntity.ok(enderecoDto);
+        return ResponseEntity.ok(enderecoResponseDto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EnderecoDto> salvar(@RequestBody Endereco endereco){
+    public ResponseEntity<EnderecoResponseDto> salvar(@RequestBody Endereco endereco){
         Endereco enderecoDto = service.salvar(endereco);
         return ResponseEntity.ok(converter.convert(enderecoDto));
     }
@@ -52,7 +52,7 @@ public class EnderecoController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<EnderecoDto> atualizar(@RequestBody Endereco endereco){
+    public ResponseEntity<EnderecoResponseDto> atualizar(@RequestBody Endereco endereco){
         Endereco enderecoDto = service.atualizar(endereco);
         return ResponseEntity.ok(converter.convert(enderecoDto));
     }

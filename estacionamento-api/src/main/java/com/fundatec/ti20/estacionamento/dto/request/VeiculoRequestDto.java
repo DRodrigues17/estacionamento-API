@@ -1,4 +1,4 @@
-package com.fundatec.ti20.estacionamento.dto;
+package com.fundatec.ti20.estacionamento.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
@@ -8,10 +8,10 @@ import lombok.Data;
 @Builder
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class VeiculoDto {
+public class VeiculoRequestDto {
 
     private TipoVeiculo tipoVeiculo;
     private String placa;
-    private AssinanteDto assinante;
+    private AssinanteRequestDto assinante;
 
 }

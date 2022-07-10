@@ -1,22 +1,21 @@
-package com.fundatec.ti20.estacionamento.dto;
+package com.fundatec.ti20.estacionamento.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fundatec.ti20.estacionamento.model.enums.TipoTarifa;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import lombok.Builder;
 import lombok.Data;
-import java.time.LocalDateTime;
+
+import java.math.BigDecimal;
 
 @Builder
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ContaDto {
+public class TarifaResponseDto {
 
-private LocalDateTime entrada;
-private LocalDateTime saida;
-private TipoTarifa tipoTarifa;
-private TipoVeiculo tipoVeiculo;
-private Double tarifa;
-
+    private Integer id;
+    private TipoVeiculo tipoVeiculo;
+    private TipoTarifa tipoTarifa;
+    private BigDecimal valor;
 
 }

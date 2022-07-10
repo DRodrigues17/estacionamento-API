@@ -1,12 +1,12 @@
 package com.fundatec.ti20.estacionamento.controller;
 
 import com.fundatec.ti20.estacionamento.converter.response.VeiculoResponseConverter;
-import com.fundatec.ti20.estacionamento.dto.VeiculoDto;
+import com.fundatec.ti20.estacionamento.dto.response.VeiculoResponseDto;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,24 +29,24 @@ public class VeiculoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<VeiculoDto> findVeicleById(@PathVariable("id") Integer id) {
+    public ResponseEntity<VeiculoResponseDto> findVeicleById(@PathVariable("id") Integer id) {
         Veiculo veiculo = service.findById(id);
         return ResponseEntity.ok(converter.convert(veiculo));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<VeiculoDto>> findAll() {
+    public ResponseEntity<List<VeiculoResponseDto>> findAll() {
         Iterable<Veiculo> veiculo = service.findAll();
-        List<VeiculoDto> veiculoDto = StreamSupport.stream(veiculo.spliterator(), false)
+        List<VeiculoResponseDto> veiculoResponseDto = StreamSupport.stream(veiculo.spliterator(), false)
                 .map(converter::convert)
                 .toList();
-        return ResponseEntity.ok(veiculoDto);
+        return ResponseEntity.ok(veiculoResponseDto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<VeiculoDto> salvar(@RequestBody Veiculo veiculo) {
+    public ResponseEntity<VeiculoResponseDto> salvar(@RequestBody Veiculo veiculo) {
         Veiculo veiculoDto = service.salvar(veiculo);
         return ResponseEntity.ok(converter.convert(veiculoDto));
     }
@@ -54,7 +54,7 @@ public class VeiculoController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<VeiculoDto> atualizar(@RequestBody Veiculo veiculo) {
+    public ResponseEntity<VeiculoResponseDto> atualizar(@RequestBody Veiculo veiculo) {
         Veiculo veiculoDto = service.salvar(veiculo);
         return ResponseEntity.ok(converter.convert(veiculoDto)) ;
     }
