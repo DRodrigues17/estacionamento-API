@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 
 
 @RestController
-@RequestMapping("/v1/veiculo")
+@RequestMapping("/v1/veiculos")
 public class VeiculoController {
 
     @Autowired

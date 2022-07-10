@@ -2,7 +2,6 @@ package com.fundatec.ti20.estacionamento.model;
 
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +26,6 @@ public class Veiculo {
     @ManyToOne
     @JoinColumn(name = "assinante_id", nullable = true)
     private Assinante assinante;
-
 
 
 

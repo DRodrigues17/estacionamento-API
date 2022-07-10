@@ -3,7 +3,9 @@ package com.fundatec.ti20.estacionamento.service;
 import com.fundatec.ti20.estacionamento.instance.TarifaPorPeriodoInstance;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import com.fundatec.ti20.estacionamento.service.strategy.periodo.TarifaPorPeriodoStrategy;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CalcularContaService {
 
 	public double calcular(TipoVeiculo veiculo, long periodoUtilizadoEmMinutos) {

@@ -19,6 +19,5 @@ public class AssinanteResponseDto {
     private String cpf;
     private Endereco endereco;
     private BigDecimal creditoTotal;
-    private List<Veiculo> veiculos;
 
 }

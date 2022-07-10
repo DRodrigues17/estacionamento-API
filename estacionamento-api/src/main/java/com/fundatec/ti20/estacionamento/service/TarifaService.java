@@ -18,12 +18,14 @@ public class TarifaService {
 
     @Autowired
     private final TarifaRepository repository;
+
+
     @Autowired
     private final CalcularContaService service;
 
-    public Tarifa find(Integer idVeiculo, Integer idConta) {
-        return repository.findByIdVeiculoAndIdConta(idVeiculo, idConta).orElseThrow(() -> new RuntimeException("Tarifa não encontrada"));
-    }
+//    public Tarifa find(Integer idVeiculo, Integer idConta) {
+//        return repository.findByIdVeiculoAndIdConta(idVeiculo, idConta).orElseThrow(() -> new RuntimeException("Tarifa não encontrada"));
+//    }
 
     public Tarifa salvar(Tarifa tarifa) {
         return repository.save(tarifa);
@@ -33,8 +35,7 @@ public class TarifaService {
         repository.deleteById(id);
     }
 
-    //Revisar método requerido pelo professor
-    public void fecharTarifa(Conta conta) {
+   public void fecharTarifa(Conta conta) {
         Veiculo veiculo = conta.getVeiculo();
         TipoVeiculo tipoVeiculo = veiculo.getTipoVeiculo();
         if (conta.getVeiculo().temAssinante()) {

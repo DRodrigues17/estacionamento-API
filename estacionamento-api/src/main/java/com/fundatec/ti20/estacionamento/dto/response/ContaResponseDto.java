@@ -14,11 +14,10 @@ import java.time.LocalDateTime;
 public class ContaResponseDto {
 
     private Integer id;
-private LocalDateTime entrada;
-private LocalDateTime saida;
-private Veiculo veiculo;
-private BigDecimal valor;
-
+    private LocalDateTime entrada;
+    private LocalDateTime saida;
+    private Veiculo veiculo;
+    private BigDecimal valor;
 
 
 }

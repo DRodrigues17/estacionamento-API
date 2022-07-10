@@ -3,8 +3,7 @@ package com.fundatec.ti20.estacionamento.controller;
 import com.fundatec.ti20.estacionamento.service.TarifaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor

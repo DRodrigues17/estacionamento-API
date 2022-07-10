@@ -2,6 +2,7 @@ package com.fundatec.ti20.estacionamento.controller;
 
 
 import com.fundatec.ti20.estacionamento.converter.response.ContaResponseConverter;
+import com.fundatec.ti20.estacionamento.dto.request.ContaRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.ContaResponseDto;
 import com.fundatec.ti20.estacionamento.model.Conta;
 import com.fundatec.ti20.estacionamento.service.ContaService;
@@ -48,6 +49,7 @@ public class ContaController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ContaResponseDto> salvar(@RequestBody Conta conta) {
         Conta contaDto = service.salvar(conta);
+        service.iniciarConta(conta);
         return ResponseEntity.ok(converter.convert(contaDto));
     }
 
@@ -60,9 +62,9 @@ public class ContaController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ContaResponseDto> patch(@PathVariable Integer id, @RequestBody ContaPatchRequest update){
+    public ResponseEntity<ContaResponseDto> patch(@PathVariable Integer id){
         Conta conta =service.findById(id);
-        conta.setSaida(update.getSaida());
+        service.setHorarioSaida(conta);
         return ResponseEntity.ok(converter.convert(service.salvar(conta)));
     }
 
