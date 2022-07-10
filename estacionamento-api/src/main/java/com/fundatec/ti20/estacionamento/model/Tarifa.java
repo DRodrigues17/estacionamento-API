@@ -2,10 +2,7 @@ package com.fundatec.ti20.estacionamento.model;
 
 import com.fundatec.ti20.estacionamento.model.enums.TipoTarifa;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,6 +10,8 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @Builder
+@Getter
+@Setter
 @Table(name = "tb_tarifa")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +31,10 @@ public class Tarifa {
 
     @Column(nullable = false)
     private BigDecimal valor;
+
+
+    public BigDecimal retornarValor(Tarifa tarifa){
+        return tarifa.getValor();
+    }
 }
+

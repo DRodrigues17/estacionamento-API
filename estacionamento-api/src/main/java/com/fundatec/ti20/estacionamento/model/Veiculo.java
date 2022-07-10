@@ -31,7 +31,7 @@ public class Veiculo {
 
 
 
-    public TipoVeiculo getTipo() {
+    public TipoVeiculo getEhDoTipo() {
         return tipoVeiculo;
     }
 

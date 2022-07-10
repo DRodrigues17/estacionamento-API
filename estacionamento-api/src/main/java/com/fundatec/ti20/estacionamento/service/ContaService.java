@@ -1,6 +1,7 @@
 package com.fundatec.ti20.estacionamento.service;
 
 import com.fundatec.ti20.estacionamento.model.Conta;
+import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.repository.ContaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,13 @@ public class ContaService {
 
     public Conta fecharConta(Integer id, LocalDateTime saida) {
         Conta conta = findById(id);
-        conta.setSaida(saida);
+        setHorarioSaida(conta);
         service.fecharTarifa(conta);
         return salvar(conta);
+    }
+    public Conta setHorarioSaida(Conta conta){
+        conta.setSaida(LocalDateTime.now());
+        return repository.save(conta);
     }
 
     public void delete(Integer id) {
