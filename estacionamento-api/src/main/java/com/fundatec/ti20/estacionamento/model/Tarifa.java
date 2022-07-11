@@ -1,9 +1,15 @@
 package com.fundatec.ti20.estacionamento.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.fundatec.ti20.estacionamento.model.enums.TipoTarifa;
+import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
+import lombok.*;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +20,8 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @Builder
+@Getter
+@Setter
 @Table(name = "tb_tarifa")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,17 +31,29 @@ public class Tarifa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @NotBlank(message = "por favor informe o veículo")
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_tarifa", nullable = false)
+    private TipoTarifa tipoTarifa;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "conta_id")
-    private Conta conta;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_veiculo", nullable = false)
+    private TipoVeiculo tipoVeiculo;
 
     @Positive(message = "o valor precisa ser positivo")
     @Pattern(regexp = "^[1-9]\\d{0,2}(\\.\\d{3})*,\\d{2}$", message = "valor digitado no formato errado")
     @Column(nullable = false)
     private BigDecimal valor;
+
+
+    public BigDecimal retornarValor(Tarifa tarifa){
+        return tarifa.getValor();
+    }
 }
+

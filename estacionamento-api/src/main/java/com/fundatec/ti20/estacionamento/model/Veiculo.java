@@ -1,12 +1,7 @@
 package com.fundatec.ti20.estacionamento.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
-
+import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -14,8 +9,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
+@Builder
 @Getter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_veiculo")
 public class Veiculo {
 
@@ -23,6 +20,7 @@ public class Veiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
 
     @NotBlank(message = "pro favor informe o tipo do veiculo, pois isso influencia no preço")
     @Enumerated(EnumType.STRING)
@@ -35,14 +33,13 @@ public class Veiculo {
             message = "formmato inválido da placa, seguimos o padrão de todos os paises do mercosul")
     @Column(nullable = false, length = 7)
     private String placa;
-
-    @JsonBackReference
     @ManyToOne
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "assinante_id")
+    @JoinColumn(name = "assinante_id", nullable = true)
     private Assinante assinante;
 
-    public TipoVeiculo getTipo() {
+
+
+    public TipoVeiculo getEhDoTipo() {
         return tipoVeiculo;
     }
 
@@ -50,5 +47,10 @@ public class Veiculo {
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "conta_id")
     private Conta conta;
+
+    public boolean temAssinante() {
+        return assinante != null;
+    }
+
 }
 

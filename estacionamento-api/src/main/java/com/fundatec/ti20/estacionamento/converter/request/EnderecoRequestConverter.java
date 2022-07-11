@@ -1,15 +1,14 @@
-package com.fundatec.ti20.estacionamento.converter.response;
+package com.fundatec.ti20.estacionamento.converter.request;
 
 import com.fundatec.ti20.estacionamento.dto.response.EnderecoResponseDto;
 import com.fundatec.ti20.estacionamento.model.Endereco;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EnderecoResponseConverter implements EnderecoConverter<Endereco, EnderecoResponseDto> {
+public class EnderecoRequestConverter implements EnderecoConverter<EnderecoResponseDto, Endereco> {
     @Override
-    public EnderecoResponseDto convert(Endereco endereco) {
-        return EnderecoResponseDto.builder()
-                .id(endereco.getId())
+    public Endereco convert(EnderecoResponseDto endereco) {
+        return Endereco.builder()
                 .cep(endereco.getCep())
                 .logradouro(endereco.getLogradouro())
                 .build();

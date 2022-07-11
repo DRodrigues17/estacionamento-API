@@ -1,6 +1,6 @@
 package com.fundatec.ti20.estacionamento.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +9,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
+@Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_endereco")
 public class Endereco {
 

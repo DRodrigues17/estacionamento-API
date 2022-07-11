@@ -2,6 +2,8 @@ package com.fundatec.ti20.estacionamento.service;
 
 import com.fundatec.ti20.estacionamento.model.Conta;
 import com.fundatec.ti20.estacionamento.model.Tarifa;
+import com.fundatec.ti20.estacionamento.model.Veiculo;
+import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import com.fundatec.ti20.estacionamento.repository.TarifaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,14 @@ public class TarifaService {
 
     @Autowired
     private final TarifaRepository repository;
+
+
     @Autowired
     private final CalcularContaService service;
 
-    public Tarifa find(Integer idVeiculo, Integer idConta) {
-        return repository.findByIdVeiculoAndIdConta(idVeiculo, idConta).orElseThrow(() -> new RuntimeException("Tarifa não encontrada"));
-    }
+//    public Tarifa find(Integer idVeiculo, Integer idConta) {
+//        return repository.findByIdVeiculoAndIdConta(idVeiculo, idConta).orElseThrow(() -> new RuntimeException("Tarifa não encontrada"));
+//    }
 
     public Tarifa salvar(Tarifa tarifa) {
         return repository.save(tarifa);
@@ -31,15 +35,15 @@ public class TarifaService {
         repository.deleteById(id);
     }
 
-    //Revisar método requerido pelo professor
-    public Tarifa fecharTarifa(Conta conta) {
-
-        double valorTarifa = service.calcular(conta.getTipoVeiculo(), conta.descobrirDuracaoEmMinutos());
-        Tarifa tarifa = Tarifa.builder()
-          //    .veiculo(conta.getVeiculo())
-                .valor(new BigDecimal(valorTarifa))
-                .build();
-        return salvar(tarifa);
+   public void fecharTarifa(Conta conta) {
+        Veiculo veiculo = conta.getVeiculo();
+        TipoVeiculo tipoVeiculo = veiculo.getTipoVeiculo();
+        if (conta.getVeiculo().temAssinante()) {
+            double valorTarifa = (service.calcular(tipoVeiculo, conta.descobrirDuracaoEmMinutos())) * 0.90;
+        }
+        double valorTarifa = service.calcular(tipoVeiculo, conta.descobrirDuracaoEmMinutos());
+        Tarifa tarifa = Tarifa.builder().valor(new BigDecimal(valorTarifa)).build();
+        salvar(tarifa);
     }
 
 }

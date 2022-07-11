@@ -1,7 +1,7 @@
 package com.fundatec.ti20.estacionamento.controller;
 
 import com.fundatec.ti20.estacionamento.converter.response.AssinanteResponseConverter;
-import com.fundatec.ti20.estacionamento.dto.AssinanteDto;
+import com.fundatec.ti20.estacionamento.dto.response.AssinanteResponseDto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.service.AssinanteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,24 +30,24 @@ public class AssinanteController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<AssinanteDto> findAssinanteById(@PathVariable Integer id) {
+    public ResponseEntity<AssinanteResponseDto> findAssinanteById(@PathVariable Integer id) {
         Assinante assinante = service.findById(id);
         return ResponseEntity.ok(converter.convert(assinante));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<AssinanteDto>> findAll(){
+    public ResponseEntity<List<AssinanteResponseDto>> findAll(){
         Iterable<Assinante> assinante = service.findAll();
-        List<AssinanteDto> assinanteDto = StreamSupport.stream(assinante.spliterator(), false)
+        List<AssinanteResponseDto> assinanteResponseDto = StreamSupport.stream(assinante.spliterator(), false)
                 .map(converter::convert)
                 .toList();
-        return ResponseEntity.ok(assinanteDto);
+        return ResponseEntity.ok(assinanteResponseDto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AssinanteDto> salvar(@RequestBody Assinante assinante) {
+    public ResponseEntity<AssinanteResponseDto> salvar(@RequestBody Assinante assinante) {
         Assinante assinanteDto = service.salvar(assinante);
         return ResponseEntity.ok(converter.convert(assinanteDto));
     }
@@ -55,7 +55,7 @@ public class AssinanteController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AssinanteDto> atualizar(@RequestBody Assinante assinante) {
+    public ResponseEntity<AssinanteResponseDto> atualizar(@RequestBody Assinante assinante) {
         Assinante assinanteDto = service.atualizar(assinante);
         return ResponseEntity.ok(converter.convert(assinanteDto));
     }
