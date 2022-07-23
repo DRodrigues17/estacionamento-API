@@ -1,7 +1,6 @@
 package com.fundatec.ti20.estacionamento.instance;
 
 import com.fundatec.ti20.estacionamento.service.strategy.periodo.*;
-import com.fundatec.ti20.estacionamento.service.strategy.periodo.TarifaPorPeriodoStrategy;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;

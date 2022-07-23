@@ -14,10 +14,14 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class AssinanteResponseDto {
 
-    private String nome;
-    private String cpf;
-    private Endereco endereco;
-    private BigDecimal creditoTotal;
+    public class AssinanteRequestDto {
+
+        private String nome;
+        private String cpf;
+        private Endereco endereco;
+        private BigDecimal creditoTotal;
+    }
 }
