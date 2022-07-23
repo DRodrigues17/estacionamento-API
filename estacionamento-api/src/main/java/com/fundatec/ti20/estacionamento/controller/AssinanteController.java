@@ -1,12 +1,13 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.response.AssinanteResponseConverter;
-import com.fundatec.ti20.estacionamento.dto.AssinanteDto;
+import com.fundatec.ti20.estacionamento.converter.response.AssinanteConverterImpl;
+import com.fundatec.ti20.estacionamento.dto.request.AssinanteRequestDto;
+import com.fundatec.ti20.estacionamento.dto.response.AssinanteResponseDto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.service.AssinanteService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,50 +15,44 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/v1/assinante")
 public class AssinanteController {
 
     @Autowired
     private final AssinanteService service;
-
     @Autowired
-    private final AssinanteResponseConverter converter;
-
-    public AssinanteController(AssinanteService assinanteService, AssinanteResponseConverter converter) {
-        this.service = assinanteService;
-        this.converter = converter;
-    }
+    private final AssinanteConverterImpl converter;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<AssinanteDto> findAssinanteById(@PathVariable Integer id) {
+    public ResponseEntity<AssinanteResponseDto> findAssinanteById(@PathVariable Integer id) {
         Assinante assinante = service.findById(id);
         return ResponseEntity.ok(converter.convert(assinante));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<AssinanteDto>> findAll(){
+    public ResponseEntity<List<AssinanteResponseDto>> findAll() {
         Iterable<Assinante> assinante = service.findAll();
-        List<AssinanteDto> assinanteDto = StreamSupport.stream(assinante.spliterator(), false)
+        List<AssinanteResponseDto> assinanteResponseDto = StreamSupport.stream(assinante.spliterator(), false)
                 .map(converter::convert)
                 .toList();
-        return ResponseEntity.ok(assinanteDto);
+        return ResponseEntity.ok(assinanteResponseDto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AssinanteDto> salvar(@RequestBody Assinante assinante) {
-        Assinante assinanteDto = service.salvar(assinante);
-        return ResponseEntity.ok(converter.convert(assinanteDto));
+    public ResponseEntity<AssinanteResponseDto> salvar(@RequestBody AssinanteRequestDto assinanteRequestDto) {
+        Assinante assinante = service.salvar(converter.convert(assinanteRequestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(converter.convert(assinante));
     }
-
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AssinanteDto> atualizar(@RequestBody Assinante assinante) {
-        Assinante assinanteDto = service.atualizar(assinante);
-        return ResponseEntity.ok(converter.convert(assinanteDto));
+    public ResponseEntity<AssinanteResponseDto> atualizar(@RequestBody AssinanteRequestDto assinanteRequestDto) {
+        Assinante assinante = service.atualizar(converter.convert(assinanteRequestDto));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(assinante));
     }
 
     @DeleteMapping("/{id}")

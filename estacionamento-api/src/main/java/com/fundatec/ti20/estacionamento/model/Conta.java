@@ -1,15 +1,11 @@
 package com.fundatec.ti20.estacionamento.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fundatec.ti20.estacionamento.model.enums.TipoTarifa;
-import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Data
@@ -28,20 +24,15 @@ public class Conta {
     @Column(nullable = false, name = "entrada")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime entrada;
+
+    @NotBlank(message = "por favor informe o veículo")
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "veiculo_id")
+    private Veiculo veiculo;
+
     @Column(name = "saida")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime saida;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_tarifa", nullable = false)
-    private TipoTarifa tipoTarifa;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_veiculo", nullable = false)
-    private TipoVeiculo tipoVeiculo;
-
-    public Long descobrirDuracaoEmMinutos() {
-        return  Duration.between(entrada, saida).toMinutes();
-    }
 
 }

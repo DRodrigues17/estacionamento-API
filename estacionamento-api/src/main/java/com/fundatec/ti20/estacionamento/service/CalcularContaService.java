@@ -6,10 +6,10 @@ import com.fundatec.ti20.estacionamento.service.strategy.periodo.TarifaPorPeriod
 
 public class CalcularContaService {
 
-	public double calcular(TipoVeiculo veiculo, long periodoUtilizadoEmMinutos) {
-		return getTarifaPeriodoStrategy(periodoUtilizadoEmMinutos)
-				.calcular(veiculo, periodoUtilizadoEmMinutos);
-	}
+	public double calcular(TipoVeiculo tipoVeiculo, long periodoUtilizadoEmMinutos) {
+        return getTarifaPeriodoStrategy(periodoUtilizadoEmMinutos)
+                .calcular(tipoVeiculo, periodoUtilizadoEmMinutos);
+    }
 
 	private TarifaPorPeriodoStrategy getTarifaPeriodoStrategy(long periodoUtilizadoEmMinutos) {
 		return TarifaPorPeriodoInstance.INSTANCIAS.get()
@@ -18,4 +18,6 @@ public class CalcularContaService {
 				.orElseThrow(() 
 						-> new IllegalStateException("Nenhuma estratégia implementada para o período utilizado"));
 	}
+
+
 }

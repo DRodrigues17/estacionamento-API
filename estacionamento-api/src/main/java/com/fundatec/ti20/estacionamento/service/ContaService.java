@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,8 +34,11 @@ public class ContaService {
     public Conta fecharConta(Integer id, LocalDateTime saida) {
         Conta conta = findById(id);
         conta.setSaida(saida);
-        service.fecharTarifa(conta);
         return salvar(conta);
+    }
+
+    public Long descobrirDuracaoEmMinutos(Conta conta) {
+        return Duration.between(conta.getEntrada(), conta.getSaida()).toMinutes();
     }
 
     public void delete(Integer id) {

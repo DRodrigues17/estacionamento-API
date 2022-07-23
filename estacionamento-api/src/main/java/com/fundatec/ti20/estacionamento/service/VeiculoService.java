@@ -16,7 +16,11 @@ public class VeiculoService {
     }
 
     public Veiculo findById(Integer id) {
-       return repository.findById(id).orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
+    }
+
+    public Veiculo findByplaca(String placa) {
+        return repository.findByPlaca(placa).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
     }
 
     public Iterable<Veiculo> findAll() {

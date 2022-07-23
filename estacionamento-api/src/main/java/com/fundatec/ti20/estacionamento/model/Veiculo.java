@@ -3,9 +3,7 @@ package com.fundatec.ti20.estacionamento.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fundatec.ti20.estacionamento.model.enums.TipoVeiculo;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,12 +11,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "tb_veiculo")
 @Data
 @Getter
-@ToString
-@Table(name = "tb_veiculo")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Veiculo {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

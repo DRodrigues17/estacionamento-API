@@ -16,7 +16,7 @@ public class TarifaHoraAdicional implements TarifaPorPeriodoStrategy {
     }
 
     @Override
-    public double calcular(TipoVeiculo veiculo, Long periodoUtilizadoEmMinutos) {
+    public double calcular(TipoVeiculo veiculo, long periodoUtilizadoEmMinutos) {
         long horasAdicionais = periodoUtilizadoEmMinutos % UMA_HORA > 0
                 ? periodoUtilizadoEmMinutos / UMA_HORA
                 : periodoUtilizadoEmMinutos / UMA_HORA - 1;
