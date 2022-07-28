@@ -15,15 +15,11 @@ public class ExceptionHandlerAdvice {
         return new ResponseEntity<>(new ApiErrorDTO(e.getMessage(), LocalDateTime.now()), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(DadosErradosException.class)
-    public ResponseEntity<ApiErrorDTO> DadosErradosHandler(DadosErradosException e) {
-        return new ResponseEntity<>(new ApiErrorDTO(e.getMessage(), LocalDateTime.now()), HttpStatus.NO_CONTENT);
+    @ExceptionHandler(NotAllowedException.class)
+    public ResponseEntity<ApiErrorDTO> handleMethodNotAllowed(NotAllowedException e) {
+        return new ResponseEntity<>(new ApiErrorDTO(e.getMessage(), LocalDateTime.now()), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
-    @ExceptionHandler(ImpossivelCriarException.class)
-    public ResponseEntity<ApiErrorDTO> ImpossivelCriarHandler(ImpossivelCriarException e) {
-        return new ResponseEntity<>(new ApiErrorDTO(e.getMessage(), LocalDateTime.now()), HttpStatus.NOT_ACCEPTABLE);
-    }
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> NotFoundHandler(ObjectNotFoundException e) {

@@ -26,6 +26,9 @@ public class ContaService {
 
 
     public List<Conta> findAll() {
+        if(repository.findAll().isEmpty()){
+            throw new ObjectNotFoundException("nenhuma conta, o banco de dados está vazio");
+        }
         return repository.findAll();
     }
 
@@ -34,12 +37,15 @@ public class ContaService {
     }
 
     public Conta salvar(Conta conta) {
+        if (repository.findAll().contains(conta)){
+            throw new ConflitoException("conta");
+        }
         return repository.save(conta);
     }
 
-    public Conta fecharConta(Integer id, LocalDateTime saida) {
+    public Conta fecharConta(Integer id) {
         Conta conta = findById(id);
-        conta.setSaida(saida);
+        conta.setStatus(StatusPagamento.FINALIZADA);
         return conta;
     }
     public Long descobrirDuracaoEmMinutos(Conta conta) {
@@ -47,6 +53,9 @@ public class ContaService {
     }
 
     public void delete(Integer id) {
+        if (!repository.findAll().contains(id)){
+            throw new ObjectNotFoundException("conta");
+        }
         repository.deleteById(id);
     }
 
@@ -57,11 +66,7 @@ public class ContaService {
         Veiculo veiculo = veiculoService.findById(idVeiculo);
         conta.setVeiculo(veiculo);
         conta.setStatus(StatusPagamento.ABERTA);
-        try {
-            return repository.save(conta);
-        } catch (ConflitoException e){
-            throw new ConflitoException("cliente");
-        }
+        return repository.save(conta);
     }
 
 }

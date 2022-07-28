@@ -66,19 +66,10 @@ ContaController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ContaResponseDto> finalizarConta(@PathVariable Integer id) {
         Conta conta = service.findById(id);
-        calcularContaService.calcular(conta);
-        conta.setStatus(StatusPagamento.FINALIZADA);
-        service.salvar(conta);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(conta));
-    }
-
-
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ContaResponseDto> patch(@PathVariable Integer id) {
         LocalDateTime saida = LocalDateTime.now();
-        Conta conta = service.fecharConta(id, saida);
-        return ResponseEntity.ok(converter.convert(service.salvar(conta)));
+        calcularContaService.calcular(conta, saida);
+        service.fecharConta(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(service.salvar(conta)));
     }
 
     @DeleteMapping("/{id}")
