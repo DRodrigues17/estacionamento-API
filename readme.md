@@ -16,7 +16,7 @@ CREATE DATABASE PROJETO_LP2;
 USE PROJETO_LP2;
 ```
 
-o projéto já tem arquivos .sql que inserem dados no  banco logo que a api é
+o projeto já tem arquivos .sql que inserem dados no  banco logo que a api é
 inicializada, por isso a importancia de tudo isso.
 
 para acessar e testar a api, utilize a seguinte url :
