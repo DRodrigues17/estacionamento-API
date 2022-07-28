@@ -9,7 +9,7 @@ public interface TarifaPorPeriodoStrategy {
 	
 	boolean compreendePeriodoUtilizado(long periodoUtilizadoEmMinutos);
 
-	double calcular(TipoVeiculo veiculo, Long periodoUtilizadoEmMinutos);
+	double calcular(TipoVeiculo veiculo, long periodoUtilizadoEmMinutos);
 	
 	default TarifaPorVeiculoStrategy getTarifaVeiculoStrategy(TipoVeiculo veiculo) {
 		return TarifaPorVeiculoInstance.INSTANCIAS.get()

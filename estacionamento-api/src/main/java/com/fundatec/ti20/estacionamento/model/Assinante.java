@@ -1,10 +1,8 @@
 package com.fundatec.ti20.estacionamento.model;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import lombok.Getter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,14 +13,13 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 @Entity
 @Data
 @Builder
 @Getter
+@Table(name = "tb_assinante")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_assinante")
 public class Assinante {
 
 
@@ -49,5 +46,11 @@ public class Assinante {
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
+
+    @Column(nullable = false)
+    @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(mappedBy = "assinante", targetEntity = Veiculo.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Veiculo> veiculos;
 
 }

@@ -1,12 +1,13 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.response.AssinanteResponseConverter;
+import com.fundatec.ti20.estacionamento.converter.AssinanteConverterImpl;
+import com.fundatec.ti20.estacionamento.dto.request.AssinanteRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.AssinanteResponseDto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
 import com.fundatec.ti20.estacionamento.service.AssinanteService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +15,14 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/v1/assinante")
+@AllArgsConstructor
+@RequestMapping("/v1/assinantes")
 public class AssinanteController {
 
     @Autowired
     private final AssinanteService service;
-
     @Autowired
-    private final AssinanteResponseConverter converter;
-
-    public AssinanteController(AssinanteService assinanteService, AssinanteResponseConverter converter) {
-        this.service = assinanteService;
-        this.converter = converter;
-    }
+    private final AssinanteConverterImpl converter;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
@@ -37,9 +33,9 @@ public class AssinanteController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<AssinanteResponseDto>> findAll(){
-        Iterable<Assinante> assinante = service.findAll();
-        List<AssinanteResponseDto> assinanteResponseDto = StreamSupport.stream(assinante.spliterator(), false)
+    public ResponseEntity<List<AssinanteResponseDto>> findAll() {
+        List<Assinante> assinante = service.findAll();
+        List<AssinanteResponseDto> assinanteResponseDto = assinante.stream()
                 .map(converter::convert)
                 .toList();
         return ResponseEntity.ok(assinanteResponseDto);
@@ -47,17 +43,16 @@ public class AssinanteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AssinanteResponseDto> salvar(@RequestBody Assinante assinante) {
-        Assinante assinanteDto = service.salvar(assinante);
-        return ResponseEntity.ok(converter.convert(assinanteDto));
+    public ResponseEntity<AssinanteResponseDto> salvar(@RequestBody AssinanteRequestDto assinanteRequestDto) {
+        Assinante assinante = service.salvar(converter.convert(assinanteRequestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(converter.convert(assinante));
     }
-
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AssinanteResponseDto> atualizar(@RequestBody Assinante assinante) {
-        Assinante assinanteDto = service.atualizar(assinante);
-        return ResponseEntity.ok(converter.convert(assinanteDto));
+    public ResponseEntity<AssinanteResponseDto> atualizar(@RequestBody AssinanteRequestDto assinanteRequestDto) {
+        Assinante assinante = service.atualizar(converter.convert(assinanteRequestDto));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(assinante));
     }
 
     @DeleteMapping("/{id}")

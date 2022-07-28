@@ -13,7 +13,7 @@ public class TarifaDiaria implements TarifaPorPeriodoStrategy {
 	}
 
 	@Override
-	public double calcular(TipoVeiculo veiculo, Long periodoUtilizadoEmMinutos) {
+	public double calcular(TipoVeiculo veiculo, long periodoUtilizadoEmMinutos) {
 		return getTarifaVeiculoStrategy(veiculo)
 				.getValorTarifa(TipoTarifa.DIARIA);
 	}

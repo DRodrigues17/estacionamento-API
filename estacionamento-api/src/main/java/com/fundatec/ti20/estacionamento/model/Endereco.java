@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
-@Builder
 @Getter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_endereco")
 public class Endereco {
 
@@ -21,14 +21,14 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "logradouro")
     @NotBlank(message = "informe o numero de sua residencia")
     private String logradouro;
 
     @NotBlank(message = "informe seu cep para sabermos sua rua, bairro e afins")
     @Size(min = 10, max = 10, message = "quantidade de digitos inválida")
-    @Pattern(regexp = "(^\\d{5}-\\d{3}|^\\d{2}.\\d{3}-\\d{3}|\\d{8})\n")
-    @Column(nullable = false, length = 10)
+    @Pattern(regexp = "(^\\d{5}-\\d{3}|^\\d{2}.\\d{3}-\\d{3}|\\d{8})")
+    @Column(nullable = false, length = 10, name = "cep")
     private String cep;
 
 }
