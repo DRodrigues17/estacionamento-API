@@ -14,6 +14,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VeiculoResponseDto {
 
+    private Integer idVeiculo;
     private TipoVeiculo tipoVeiculo;
     private String placa;
     private AssinanteResponseDto assinante;

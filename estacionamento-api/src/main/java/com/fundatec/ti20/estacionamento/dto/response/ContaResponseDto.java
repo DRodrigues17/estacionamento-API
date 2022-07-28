@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
@@ -15,9 +16,11 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContaResponseDto {
 
+    private Integer idConta;
     private String placaVeiculo;
     private LocalDateTime entrada;
     private LocalDateTime saida;
+    private BigDecimal valorPagamento;
 
 
 }

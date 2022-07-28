@@ -14,6 +14,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TarifaRequestDto {
 
+    private Integer id;
     private Integer contaId;
 
 

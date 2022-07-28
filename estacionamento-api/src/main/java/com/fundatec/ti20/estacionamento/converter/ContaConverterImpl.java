@@ -1,8 +1,9 @@
-package com.fundatec.ti20.estacionamento.converter.response;
+package com.fundatec.ti20.estacionamento.converter;
 
 import com.fundatec.ti20.estacionamento.dto.request.ContaRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.ContaResponseDto;
 import com.fundatec.ti20.estacionamento.model.Conta;
+import com.fundatec.ti20.estacionamento.model.Veiculo;
 import com.fundatec.ti20.estacionamento.service.VeiculoService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,18 +17,20 @@ public class ContaConverterImpl implements ContaConverter<Conta, ContaResponseDt
     @Override
     public ContaResponseDto convert(Conta conta) {
         return ContaResponseDto.builder()
+                .idConta(conta.getId())
                 .entrada(conta.getEntrada())
                 .saida(conta.getSaida())
                 .placaVeiculo(conta.getVeiculo().getPlaca())
+                .valorPagamento(conta.getValorPagamento())
                 .build();
-
     }
 
     @Override
     public Conta convert(ContaRequestDto conta) {
         return Conta.builder()
+                .veiculo(veiculoService.findById(conta.getIdVeiculo()))
                 .entrada(conta.getEntrada())
-                .veiculo(veiculoService.findByplaca(conta.getPlacaVeiculo()))
+                .status(conta.getStatusPagamento())
                 .build();
     }
 }

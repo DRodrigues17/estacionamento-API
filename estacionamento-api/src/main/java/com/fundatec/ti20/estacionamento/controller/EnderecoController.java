@@ -1,6 +1,6 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.response.EnderecoConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.EnderecoConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.EnderecoRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.EnderecoResponseDto;
 import com.fundatec.ti20.estacionamento.model.Endereco;
@@ -36,8 +36,8 @@ public class EnderecoController {
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<EnderecoResponseDto>> findAll() {
-        Iterable<Endereco> endereco = service.findAll();
-        List<EnderecoResponseDto> enderecoResponseDto = StreamSupport.stream(endereco.spliterator(), false)
+        List<Endereco> endereco = service.findAll();
+        List<EnderecoResponseDto> enderecoResponseDto = endereco.stream()
                 .map(converter::convert)
                 .toList();
         return ResponseEntity.ok(enderecoResponseDto);

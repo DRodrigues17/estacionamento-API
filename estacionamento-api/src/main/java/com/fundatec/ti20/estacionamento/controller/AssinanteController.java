@@ -1,6 +1,6 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.response.AssinanteConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.AssinanteConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.AssinanteRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.AssinanteResponseDto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
@@ -16,7 +16,7 @@ import java.util.stream.StreamSupport;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/v1/assinante")
+@RequestMapping("/v1/assinantes")
 public class AssinanteController {
 
     @Autowired
@@ -34,8 +34,8 @@ public class AssinanteController {
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<AssinanteResponseDto>> findAll() {
-        Iterable<Assinante> assinante = service.findAll();
-        List<AssinanteResponseDto> assinanteResponseDto = StreamSupport.stream(assinante.spliterator(), false)
+        List<Assinante> assinante = service.findAll();
+        List<AssinanteResponseDto> assinanteResponseDto = assinante.stream()
                 .map(converter::convert)
                 .toList();
         return ResponseEntity.ok(assinanteResponseDto);

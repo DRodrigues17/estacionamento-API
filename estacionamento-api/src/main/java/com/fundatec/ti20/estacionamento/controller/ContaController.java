@@ -1,31 +1,34 @@
 package com.fundatec.ti20.estacionamento.controller;
 
 
-import com.fundatec.ti20.estacionamento.converter.response.ContaConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.ContaConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.ContaRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.ContaResponseDto;
 import com.fundatec.ti20.estacionamento.model.Conta;
+import com.fundatec.ti20.estacionamento.model.enums.StatusPagamento;
+import com.fundatec.ti20.estacionamento.service.CalcularContaService;
 import com.fundatec.ti20.estacionamento.service.ContaService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/v1/contas")
-public class ContaController {
+public class
+ContaController {
 
     @Autowired
     private final ContaService service;
     @Autowired
+    private final CalcularContaService calcularContaService;
+    @Autowired
     private final ContaConverterImpl converter;
-
-    public ContaController(ContaService service, ContaConverterImpl converter) {
-        this.service = service;
-        this.converter = converter;
-    }
 
 
     @GetMapping("/{id}")
@@ -47,8 +50,8 @@ public class ContaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ContaResponseDto> salvar(@RequestBody ContaRequestDto contaRequestDto) {
-        Conta contaDto = service.salvar(converter.convert(contaRequestDto));
+    public ResponseEntity<ContaResponseDto> criarConta(@RequestBody ContaRequestDto contaRequestDto) {
+        Conta contaDto = service.criarNovaConta(converter.convert(contaRequestDto), contaRequestDto.getIdVeiculo());
         return ResponseEntity.status(HttpStatus.CREATED).body(converter.convert(contaDto));
     }
 
@@ -59,12 +62,14 @@ public class ContaController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(conta));
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("finalizar/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ContaResponseDto> patch(@PathVariable Integer id, @RequestBody ContaPatchRequest update) {
+    public ResponseEntity<ContaResponseDto> finalizarConta(@PathVariable Integer id) {
         Conta conta = service.findById(id);
-        conta.setSaida(update.getSaida());
-        return ResponseEntity.ok(converter.convert(service.salvar(conta)));
+        LocalDateTime saida = LocalDateTime.now();
+        calcularContaService.calcular(conta, saida);
+        service.fecharConta(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(service.salvar(conta)));
     }
 
     @DeleteMapping("/{id}")

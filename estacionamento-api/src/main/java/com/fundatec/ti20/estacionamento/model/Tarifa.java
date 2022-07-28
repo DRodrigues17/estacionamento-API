@@ -30,10 +30,6 @@ public class Tarifa {
     @Column(name = "tipo_veiculo", nullable = false)
     private TipoVeiculo tipoVeiculo;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "conta_id")
-    private Conta conta;
-
     @Positive(message = "o valor precisa ser positivo")
     @Pattern(regexp = "^[1-9]\\d{0,2}(\\.\\d{3})*,\\d{2}$", message = "valor digitado no formato errado")
     @Column(nullable = false)

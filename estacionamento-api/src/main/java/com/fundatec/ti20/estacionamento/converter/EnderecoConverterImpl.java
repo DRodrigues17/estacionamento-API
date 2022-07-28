@@ -1,4 +1,4 @@
-package com.fundatec.ti20.estacionamento.converter.response;
+package com.fundatec.ti20.estacionamento.converter;
 
 import com.fundatec.ti20.estacionamento.dto.request.EnderecoRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.EnderecoResponseDto;
@@ -10,6 +10,7 @@ public class EnderecoConverterImpl implements EnderecoConverter<Endereco, Endere
     @Override
     public EnderecoResponseDto convert(Endereco endereco) {
         return EnderecoResponseDto.builder()
+                .idEndereco(endereco.getId())
                 .cep(endereco.getCep())
                 .logradouro(endereco.getLogradouro())
                 .build();

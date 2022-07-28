@@ -1,4 +1,4 @@
-package com.fundatec.ti20.estacionamento.converter.response;
+package com.fundatec.ti20.estacionamento.converter;
 
 import com.fundatec.ti20.estacionamento.dto.request.TarifaRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.TarifaResponseDto;

@@ -13,6 +13,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnderecoResponseDto {
 
+    private Integer idEndereco;
     private String logradouro;
     private String cep;
 

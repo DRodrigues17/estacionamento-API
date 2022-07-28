@@ -1,7 +1,6 @@
 package com.fundatec.ti20.estacionamento.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fundatec.ti20.estacionamento.model.Endereco;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -14,14 +13,12 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
 public class AssinanteResponseDto {
 
-    public class AssinanteRequestDto {
-
+        private Integer idAssinante;
         private String nome;
         private String cpf;
-        private Endereco endereco;
+        private EnderecoResponseDto endereco;
         private BigDecimal creditoTotal;
     }
-}
+
