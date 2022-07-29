@@ -1,11 +1,10 @@
 package com.fundatec.ti20.estacionamento.controller;
 
 
-import com.fundatec.ti20.estacionamento.converter.ContaConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.Impl.ContaConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.ContaRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.ContaResponseDto;
 import com.fundatec.ti20.estacionamento.model.Conta;
-import com.fundatec.ti20.estacionamento.model.enums.StatusPagamento;
 import com.fundatec.ti20.estacionamento.service.CalcularContaService;
 import com.fundatec.ti20.estacionamento.service.ContaService;
 import lombok.AllArgsConstructor;
@@ -14,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -50,21 +50,21 @@ ContaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ContaResponseDto> criarConta(@RequestBody ContaRequestDto contaRequestDto) {
+    public ResponseEntity<ContaResponseDto> criarConta(@Valid @RequestBody ContaRequestDto contaRequestDto) {
         Conta contaDto = service.criarNovaConta(converter.convert(contaRequestDto), contaRequestDto.getIdVeiculo());
         return ResponseEntity.status(HttpStatus.CREATED).body(converter.convert(contaDto));
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ContaResponseDto> atualizar(@RequestBody ContaRequestDto contaRequestDto, @PathVariable Integer id) {
+    public ResponseEntity<ContaResponseDto> atualizar(@Valid @RequestBody ContaRequestDto contaRequestDto, @PathVariable Integer id) {
         Conta conta = service.salvar(converter.convert(contaRequestDto));
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(conta));
     }
 
     @PutMapping("finalizar/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ContaResponseDto> finalizarConta(@PathVariable Integer id) {
+    public ResponseEntity<ContaResponseDto> finalizarConta(@Valid @PathVariable Integer id) {
         Conta conta = service.findById(id);
         LocalDateTime saida = LocalDateTime.now();
         calcularContaService.calcular(conta, saida);

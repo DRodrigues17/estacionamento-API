@@ -1,6 +1,6 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.AssinanteConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.Impl.AssinanteConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.AssinanteRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.AssinanteResponseDto;
 import com.fundatec.ti20.estacionamento.model.Assinante;
@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 @RestController
 @AllArgsConstructor
@@ -43,14 +43,14 @@ public class AssinanteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AssinanteResponseDto> salvar(@RequestBody AssinanteRequestDto assinanteRequestDto) {
+    public ResponseEntity<AssinanteResponseDto> salvar(@Valid @RequestBody AssinanteRequestDto assinanteRequestDto) {
         Assinante assinante = service.salvar(converter.convert(assinanteRequestDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(converter.convert(assinante));
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AssinanteResponseDto> atualizar(@RequestBody AssinanteRequestDto assinanteRequestDto) {
+    public ResponseEntity<AssinanteResponseDto> atualizar(@Valid @RequestBody AssinanteRequestDto assinanteRequestDto) {
         Assinante assinante = service.atualizar(converter.convert(assinanteRequestDto));
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(assinante));
     }

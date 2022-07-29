@@ -1,6 +1,6 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.EnderecoConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.Impl.EnderecoConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.EnderecoRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.EnderecoResponseDto;
 import com.fundatec.ti20.estacionamento.model.Endereco;
@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/v1/enderecos")
@@ -45,7 +45,7 @@ public class EnderecoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EnderecoResponseDto> salvar(@RequestBody EnderecoRequestDto enderecoRequestDto) {
+    public ResponseEntity<EnderecoResponseDto> salvar(@Valid @RequestBody EnderecoRequestDto enderecoRequestDto) {
         Endereco enderecoDto = service.salvar(converter.convert(enderecoRequestDto));
         return ResponseEntity.ok(converter.convert(enderecoDto));
     }
@@ -53,7 +53,7 @@ public class EnderecoController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<EnderecoResponseDto> atualizar(@RequestBody EnderecoRequestDto enderecoRequestDto) {
+    public ResponseEntity<EnderecoResponseDto> atualizar(@Valid @RequestBody EnderecoRequestDto enderecoRequestDto) {
         Endereco endereco = service.atualizar(converter.convert(enderecoRequestDto));
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(endereco));
     }

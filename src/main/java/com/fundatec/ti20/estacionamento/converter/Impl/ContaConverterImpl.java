@@ -1,5 +1,6 @@
-package com.fundatec.ti20.estacionamento.converter;
+package com.fundatec.ti20.estacionamento.converter.Impl;
 
+import com.fundatec.ti20.estacionamento.converter.ContaConverter;
 import com.fundatec.ti20.estacionamento.dto.request.ContaRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.ContaResponseDto;
 import com.fundatec.ti20.estacionamento.model.Conta;

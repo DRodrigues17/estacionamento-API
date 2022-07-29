@@ -1,5 +1,6 @@
-package com.fundatec.ti20.estacionamento.converter;
+package com.fundatec.ti20.estacionamento.converter.Impl;
 
+import com.fundatec.ti20.estacionamento.converter.AssinanteConverter;
 import com.fundatec.ti20.estacionamento.dto.request.AssinanteRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.AssinanteResponseDto;
 import com.fundatec.ti20.estacionamento.dto.response.EnderecoResponseDto;

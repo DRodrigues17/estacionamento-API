@@ -1,6 +1,6 @@
 package com.fundatec.ti20.estacionamento.controller;
 
-import com.fundatec.ti20.estacionamento.converter.VeiculoConverterImpl;
+import com.fundatec.ti20.estacionamento.converter.Impl.VeiculoConverterImpl;
 import com.fundatec.ti20.estacionamento.dto.request.VeiculoRequestDto;
 import com.fundatec.ti20.estacionamento.dto.response.VeiculoResponseDto;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 
 @RestController
@@ -44,7 +44,7 @@ public class VeiculoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<VeiculoResponseDto> salvar(@RequestBody VeiculoRequestDto veiculoRequestDto) {
+    public ResponseEntity<VeiculoResponseDto> salvar(@Valid @RequestBody VeiculoRequestDto veiculoRequestDto) {
         Veiculo veiculo = service.salvar(converter.convert(veiculoRequestDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(converter.convert(veiculo));
     }
@@ -52,7 +52,7 @@ public class VeiculoController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<VeiculoResponseDto> atualizar(@RequestBody VeiculoRequestDto veiculoRequestDto) {
+    public ResponseEntity<VeiculoResponseDto> atualizar(@Valid @RequestBody VeiculoRequestDto veiculoRequestDto) {
         Veiculo veiculo = service.salvar(converter.convert(veiculoRequestDto));
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(converter.convert(veiculo));
     }
