@@ -53,15 +53,5 @@ public class TarifaService {
         repository.deleteById(id);
     }
 
-    //Revisar método requerido pelo professor
-//    public void MontarTarifa(Tarifa tarifa) {
-//        Conta contaUtilizada = tarifa.getConta();
-//        long tempoEmMinutos = contaService.descobrirDuracaoEmMinutos(contaUtilizada);
-//        TipoVeiculo tipoVeiculo = contaUtilizada.getVeiculo().getTipoVeiculo();
-//        tarifa.setValor(BigDecimal.valueOf(calculoService.calcular(tipoVeiculo, tempoEmMinutos)));
-//        contaUtilizada.setValorPagamento(tarifa.getValor());
-//    }
-
-
 
 }

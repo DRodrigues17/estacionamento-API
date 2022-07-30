@@ -1,6 +1,7 @@
 package com.fundatec.ti20.estacionamento.service;
 
 import com.fundatec.ti20.estacionamento.exceptions.ConflitoException;
+import com.fundatec.ti20.estacionamento.exceptions.NotAllowedException;
 import com.fundatec.ti20.estacionamento.exceptions.ObjectNotFoundException;
 import com.fundatec.ti20.estacionamento.model.Conta;
 import com.fundatec.ti20.estacionamento.model.Veiculo;
@@ -37,14 +38,14 @@ public class ContaService {
     }
 
     public Conta salvar(Conta conta) {
-        if (repository.findAll().contains(conta)){
-            throw new ConflitoException("conta");
-        }
         return repository.save(conta);
     }
 
     public Conta fecharConta(Integer id) {
         Conta conta = findById(id);
+        if(conta.getStatus().equals(StatusPagamento.FINALIZADA)){
+            throw new NotAllowedException(" conta já finalizada");
+        }
         conta.setStatus(StatusPagamento.FINALIZADA);
         return conta;
     }

@@ -33,7 +33,7 @@ public class AssinanteService {
     }
 
     public Assinante salvar(Assinante assinante) {
-        if (repository.findAll().contains(assinante)){
+        if (cpfExists(assinante)){
             throw new ConflitoException("assinante");
         }
         return repository.save(assinante);
@@ -53,5 +53,11 @@ public class AssinanteService {
         repository.deleteById(id);
     }
 
+    private boolean cpfExists(Assinante assinante){
+        if(repository.countAssinanteByCpf(assinante.getCpf()) == 1){
+            return true;
+        }
+        return false;
+    }
 
 }

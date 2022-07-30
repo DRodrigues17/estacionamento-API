@@ -35,7 +35,7 @@ public class VeiculoService {
     }
 
     public Veiculo salvar(Veiculo veiculo) {
-        if (repository.findAll().contains(veiculo)){
+        if (placaExists(veiculo)){
             throw new ConflitoException("veiculo");
         }
         return repository.save(veiculo);
@@ -48,5 +48,11 @@ public class VeiculoService {
         repository.deleteById(id);
     }
 
+    private boolean placaExists(Veiculo veiculo){
+        if(repository.countVeiculoByPlaca(veiculo.getPlaca()) == 1) {
+            return true;
+        }
+        return false;
+    }
 
 }

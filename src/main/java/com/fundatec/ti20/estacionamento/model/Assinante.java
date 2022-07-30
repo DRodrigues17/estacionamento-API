@@ -29,6 +29,7 @@ public class Assinante {
 
     @Column(nullable = false)
     @NotBlank(message = "nome necessário, afinal todos temos um")
+    @Size(min = 3, max = 50, message = "numero de caracteres inválido, deve conter no minimo 3 letras e no máximo 50")
     private String nome;
 
     @NotBlank(message = "cpf requirido para cadastro")
